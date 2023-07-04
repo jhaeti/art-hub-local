@@ -6,16 +6,7 @@ on:
   #   paths:
   #     - "backend/**"
   workflow_dispatch:
-env:
-#  bucket_name: "<example-bucket-name>"
-  AWS_REGION: us-east-1b
-  REMOTE_HOST: ${{ secrets.SSH_HOST }}
-  REMOTE_USER: ${{ secrets.SSH_USER }}
-
-permissions:
-  contents: read
-  id-token: write
-
+  
 jobs:
   Storing-previous-image-with-new-tag:
     runs-on: ubuntu-latest
@@ -73,28 +64,16 @@ jobs:
           tags: ${{secrets.BACKEND_DOCKER_IMAGE}}:latest
           secrets: |
             PORT=${{ secrets.PORT }}
-
-  Deploy-to-server:
-    needs: Build-and-push-image
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v3
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-      - run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/github-actions-key
-          chmod 600 ~/.ssh/github-actions-key
-          cat >>~/.ssh/config <<END
-          Host ec2
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/github-actions-key
-            StrictHostKeyChecking no
-          END
-      - name: List home directory
-        run: ssh ec2 'ls -la'
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script_stop: true
+          script: ls -all
