@@ -77,12 +77,4 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
       - run: |
           echo "$SSH_KEY" > private_key && chmod 600 private_key
-          ssh -T -i private_key ${SSH_USER}@${SSH_HOST} '
-          pwd
-          
-          #docker pull jhae/art_hub_local_backend:latest
-          #docker service update --image jhae/art_hub_local_backend:latest arthublocal_art-hub-local-backend
-          #docker container prune -f
-          #docker image prune -f 
-          #docker volume prune -f
-          '
+          ssh -o StrictHostKeyChecking=no -i private_key ${SSH_USER}@${SSH_HOST}
