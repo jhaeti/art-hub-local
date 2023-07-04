@@ -1,10 +1,10 @@
 name: FRONTEND CI / CD
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "frontend/**"
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - "frontend/**"
   workflow_dispatch:
 
 jobs:
@@ -91,37 +91,22 @@ jobs:
           context: frontend
           push: true
           tags: ${{secrets.FRONTEND_DOCKER_IMAGE}}:latest
+
   Deploy-to-server:
     needs: Build-and-push-image
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: multiple command
-        uses: appleboy/ssh-action@master
-        env:
-          IMAGE: ${{secrets.FRONTEND_DOCKER_IMAGE}}
+      - uses: actions/checkout@v2
+      - id: ssh
+        uses: invi5H/ssh-action@v1
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.HOST_USER }}
-          password: ${{ secrets.HOST_KEY }}
-          envs: IMAGE
-          script: |
-            cd art_hub_local
-            docker-compose pull frontend
-            docker service update arthublocal_frontend
-  Cleaning-containers-and-dangling-images-on-server:
-    needs: Deploy-to-server
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Removing All dangling images and containers after updating the images to latest
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.HOST_USER }}
-          password: ${{ secrets.HOST_KEY }}
-          script: |
-            docker rm $(docker ps -a -f status=exited)
-            docker image prune -a -f
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+      - run: |
+          docker pull jhae/art_hub_local_frontend:latest
+          docker service update --image jhae/art_hub_local_frontend:latest arthublocal_art-hub-local-frontend
+          docker container prune -f
+          docker image prune -f 
+          docker volume prune -f

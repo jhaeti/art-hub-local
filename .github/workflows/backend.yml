@@ -1,10 +1,10 @@
 name: BACKEND CI / CD
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "backend/**"
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - "backend/**"
   workflow_dispatch:
 
 jobs:
@@ -70,31 +70,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: multiple command
-        uses: appleboy/ssh-action@master
-        env:
-          IMAGE: ${{secrets.DOCKERHUB_IMAGE}}
+      - id: ssh
+        uses: invi5H/ssh-action@v1
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.HOST_USER }}
-          password: ${{ secrets.HOST_KEY }}
-          envs: IMAGE
-          script: |
-            cd art_hub_local
-            docker-compose pull backend
-            docker service update arthublocal_backend
-  Cleaning-containers-and-dangling-images-on-server:
-    needs: Deploy-to-server
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Removing All dangling images and containers after updating the images to latest
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.HOST_USER }}
-          password: ${{ secrets.HOST_KEY }}
-          script: |
-            docker rm $(docker ps -a -f status=exited)
-            docker image prune -a -f
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+      - run: |
+          docker pull jhae/art_hub_local_backend:latest
+          docker service update --image jhae/art_hub_local_backend:latest arthublocal_art-hub-local-backend
+          docker container prune -f
+          docker image prune -f 
+          docker volume prune -f
