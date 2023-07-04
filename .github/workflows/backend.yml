@@ -78,8 +78,8 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
       - run: |
-          docker pull jhae/art_hub_local_backend:latest
-          docker service update --image jhae/art_hub_local_backend:latest arthublocal_art-hub-local-backend
-          docker container prune -f
-          docker image prune -f 
-          docker volume prune -f
+          #docker pull jhae/art_hub_local_backend:latest
+          #docker service update --image jhae/art_hub_local_backend:latest arthublocal_art-hub-local-backend
+          #docker container prune -f
+          #docker image prune -f 
+          #docker volume prune -f
