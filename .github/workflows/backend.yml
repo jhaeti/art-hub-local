@@ -6,6 +6,15 @@ on:
   #   paths:
   #     - "backend/**"
   workflow_dispatch:
+env:
+#  bucket_name: "<example-bucket-name>"
+  AWS_REGION: us-east-1b
+  REMOTE_HOST: ${{ secrets.SSH_HOST }}
+  REMOTE_USER: ${{ secrets.SSH_USER }}
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   Storing-previous-image-with-new-tag:
@@ -69,20 +78,23 @@ jobs:
     needs: Build-and-push-image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+        env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
       - run: |
-          echo "$SSH_KEY" > private_key && chmod 600 private_key &&
-          ssh -o StrictHostKeyChecking=no -i instance5.pem ${SSH_USER}@${SSH_HOST} '
-          pwd
-          
-          #docker pull jhae/art_hub_local_backend:latest
-          #docker service update --image jhae/art_hub_local_backend:latest arthublocal_art-hub-local-backend
-          #docker container prune -f
-          #docker image prune -f 
-          #docker volume prune -f
-          '
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          cat >>~/.ssh/config <<END
+          Host ec2
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
+          END
+      - name: List home directory
+        run: ssh ec2 'ls -la'
