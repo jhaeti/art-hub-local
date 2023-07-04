@@ -77,4 +77,3 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
       - run: |
           echo "$SSH_KEY" >> private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${SSH_USER}@${SSH_HOST}
