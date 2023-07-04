@@ -77,7 +77,7 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
       - run: |
           echo "$SSH_KEY" > instance5.pem && chmod 600 instance5.pem
-          ssh -o StrictHostKeyChecking=no -i instance5.pem ${SSH_USER}@${SSH_HOST} '
+          ssh -i instance5.pem ${SSH_USER}@${SSH_HOST} '
           pwd
           
           #docker pull jhae/art_hub_local_backend:latest
