@@ -79,9 +79,7 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
       - run: |
           pwd
-          cd ../../../..
-          pwd
-          cd ..
+          cd ../../../../ubuntu
           pwd
           #docker pull jhae/art_hub_local_backend:latest
           #docker service update --image jhae/art_hub_local_backend:latest arthublocal_art-hub-local-backend
