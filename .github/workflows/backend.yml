@@ -74,6 +74,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          passphrase: ''
           port: 22
           script_stop: true
           script: ls -all
