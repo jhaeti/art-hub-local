@@ -79,7 +79,7 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
       - run: |
           pwd
-          cd ..
+          cd ../../../..
           pwd
           cd ..
           pwd
