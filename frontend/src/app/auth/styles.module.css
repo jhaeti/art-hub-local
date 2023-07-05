@@ -16,12 +16,20 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  @media screen and (max-width: 600px) {
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
+  .content {
     width: 100%;
     right: 0;
   }
 }
-
+@media screen and (max-width: 600px) {
+  .content {
+    width: 100%;
+    right: 0;
+  }
+}
 .right_bg {
   position: absolute;
   width: 35%;
@@ -31,8 +39,14 @@
   background: url("/auth-right-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-
-  @media screen and (max-width: 600px) {
+}
+@media screen and (max-width: 600px) {
+  .right_bg {
+    display: none;
+  }
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
+  .right_bg {
     display: none;
   }
 }
