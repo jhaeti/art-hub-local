@@ -1,0 +1,36 @@
+.box {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: 3s move-fade-downwards ease-in-out infinite;
+}
+
+.left,
+.right {
+  width: 5.5rem;
+  height: 1rem;
+  background-color: var(--color-white-1);
+  border-radius: 1rem;
+  position: absolute;
+}
+.left {
+  transform: rotate(45deg) translateX(-40%);
+}
+.right {
+  transform: rotate(-45deg) translateX(40%);
+}
+
+@keyframes move-fade-downwards {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(10rem);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10rem);
+  }
+}
