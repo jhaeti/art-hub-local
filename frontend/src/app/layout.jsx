@@ -1,6 +1,6 @@
 import "./index.css";
 import { primary } from "./fonts";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 
 export const metadata = {
   title: "Art Hub Local",
@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={primary.className}>
-        <Navbar />
+        {/* <Navbar /> */}
         {children}
       </body>
     </html>
