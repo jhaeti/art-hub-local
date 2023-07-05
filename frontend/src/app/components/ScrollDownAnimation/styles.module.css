@@ -9,7 +9,7 @@
 .right {
   width: 5.5rem;
   height: 1rem;
-  background-color: var(--color-white-1);
+  background-color: var(--color-white);
   border-radius: 1rem;
   position: absolute;
 }
