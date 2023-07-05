@@ -91,22 +91,3 @@ jobs:
           context: frontend
           push: true
           tags: ${{secrets.FRONTEND_DOCKER_IMAGE}}:latest
-
-  Deploy-to-server:
-    needs: Build-and-push-image
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - id: ssh
-        uses: invi5H/ssh-action@v1
-        with:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-      - run: |
-          docker pull jhae/art_hub_local_frontend:latest
-          docker service update --image jhae/art_hub_local_frontend:latest arthublocal_art-hub-local-frontend
-          docker container prune -f
-          docker image prune -f 
-          docker volume prune -f
