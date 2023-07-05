@@ -1,8 +1,7 @@
 .box {
   position: absolute;
   top: 80%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: calc(50% - 2.3rem);
   animation: 3s move-fade-downwards ease-in-out infinite;
 }
 
