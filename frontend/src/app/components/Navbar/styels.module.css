@@ -2,6 +2,7 @@
   position: absolute;
   width: 100%;
   padding-top: 2rem;
+  z-index: 3000;
 }
 
 .nav > div {
@@ -30,7 +31,7 @@
 .nav ul li > * {
   display: inline-block;
   font-size: 2.4rem;
-  color: var(--color-white-1);
+  color: var(--color-white);
   text-decoration: none;
   list-style: none;
   padding: 1rem 3rem;

@@ -12,10 +12,10 @@ const Navbar = () => {
         </Link>
         <ul>
           <li>
-            <Link href="/login">Login</Link>
+            <Link href="/auth/login">Login</Link>
           </li>
           <li className={styles.join}>
-            <Link href="/register" className={fonts.primaryBold.className}>
+            <Link href="/auth/join" className={fonts.primaryBold.className}>
               Join
             </Link>
           </li>
