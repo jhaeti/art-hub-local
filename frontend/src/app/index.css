@@ -7,7 +7,10 @@
 }
 
 :root {
-  --color-dark-1: #333;
+  --color-white-1: #fffaf0;
+  --color-dark-1: #100c08;
+  --color-primary: #ff521c;
+  --color-secondary: #ff7950;
 }
 
 html {
@@ -34,4 +37,15 @@ html {
 body {
   box-sizing: border-box;
   font-size: 1.6rem;
+}
+
+/* Utility classes */
+.container {
+  width: 100%;
+  margin: auto;
+  padding: 0 5rem;
+  max-width: 120rem;
+  @media (max-width: 500px) {
+    padding: 2.3rem;
+  }
 }
