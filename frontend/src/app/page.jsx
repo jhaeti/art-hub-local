@@ -5,7 +5,6 @@ import ScrollDownAnimation from "./components/ScrollDownAnimation/ScrollDownAnim
 const Homepage = () => {
   return (
     <>
-      <Navbar />
       <Hero />
       <ScrollDownAnimation />
     </>
