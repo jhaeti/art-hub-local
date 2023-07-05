@@ -1,0 +1,60 @@
+.heading_secondary {
+  color: var(--color-primary);
+  font-size: 4.2rem;
+  margin-bottom: 3.5rem;
+  display: block;
+  text-align: center;
+}
+
+.heading_tertiary {
+  color: var(--color-white);
+  font-size: 3.2rem;
+  margin-bottom: 2rem;
+  display: block;
+  text-align: center;
+}
+.btn {
+  display: inline-block;
+  width: 100%;
+}
+
+.btn_box {
+  position: relative;
+  margin-top: 1.5rem;
+  width: 30rem;
+}
+
+.link {
+  position: relative;
+
+  display: inline-blockS;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 1.8rem;
+  text-align: center;
+  border: 1px var(--color-primary) solid;
+  width: 100%;
+  padding: 1.8rem 2.2rem;
+  background-color: transparent;
+  z-index: 5;
+}
+
+.link + span {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--color-primary);
+  transition: all 0.3s ease-in-out;
+  z-index: 2;
+}
+
+.link:hover {
+  color: var(--color-dark);
+}
+
+.link:hover + span {
+  width: 100%;
+}
