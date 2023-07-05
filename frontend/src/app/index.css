@@ -7,8 +7,8 @@
 }
 
 :root {
-  --color-white-1: #fffaf0;
-  --color-dark-1: #100c08;
+  --color-white: #fffaf0;
+  --color-dark: #100c08;
   --color-primary: #ff521c;
   --color-secondary: #ff7950;
 }
@@ -23,7 +23,7 @@ html {
   }
 }
 
-@media (max-width: 900px) {
+@media screen and (max-width: 900px) {
   html {
     font-size: 50%; /* Making 1rem = 8px */
   }
@@ -45,7 +45,7 @@ body {
   margin: auto;
   padding: 0 5rem;
   max-width: 120rem;
-  @media (max-width: 500px) {
+  @media screen and (max-width: 500px) {
     padding: 2.3rem;
   }
 }
