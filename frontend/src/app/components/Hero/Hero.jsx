@@ -13,7 +13,7 @@ const Hero = () => {
           <span>l</span> <span>a</span>
           <span>r</span>
           <span>t</span>
-          <span>s</span> an cultural splendors.
+          <span>s</span> and cultural splendors.
         </h1>
         <p>
           Experience a fusion of art, culture, and community spirit in a
