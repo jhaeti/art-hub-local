@@ -1,0 +1,36 @@
+.nav {
+  position: absolute;
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.nav > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav ul li {
+  display: inline-block;
+  margin-left: 1.5rem;
+  padding: 1rem 3rem;
+}
+
+.join {
+  background: var(--color-primary);
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.join:hover {
+  background-color: var(--color-secondary);
+}
+.nav ul li.join > * {
+  color: black;
+}
+.nav ul li > * {
+  font-size: 2.4rem;
+  color: var(--color-white-1);
+  text-decoration: none;
+  list-style: none;
+}
