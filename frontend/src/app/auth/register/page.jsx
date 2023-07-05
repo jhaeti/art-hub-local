@@ -49,14 +49,9 @@ const register = () => {
           </label>
         </div>
         <div className={styles.form_control}>
-          <input
-            type="text"
-            id="email"
-            className={styles.form_input}
-            required
-          />
-          <label htmlFor="email" className={styles.form_input_label}>
-            Email
+          <input type="text" id="momo" className={styles.form_input} required />
+          <label htmlFor="momo" className={styles.form_input_label}>
+            Momo Number
           </label>
           <p className={styles.redirect}>
             Already have and account? <Link href="/auth/login">Login</Link>{" "}
