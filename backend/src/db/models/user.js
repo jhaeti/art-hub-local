@@ -4,120 +4,124 @@ const jwt = require("jsonwebtoken");
 
 // Creating User Model
 const userSchema = new mongoose.Schema({
-    name: {
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  momo: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+  tokens: [
+    {
+      token: {
         type: String,
         required: true,
+      },
     },
-    email: {
-        type: String,
-        unique: true,
-        required: true,
+  ],
+  role: {
+    type: String,
+    default: (v) => {
+      if (v !== "ARTIST") return "BASIC";
     },
-    password: {
-        type: String,
-        required: true,
-    },
-    date: {
-        type: Date,
-        default: Date.now,
-    },
-    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
-    tokens: [
-        {
-            token: {
-                type: String,
-                required: true,
-            },
-        },
-    ],
-    role: {
-        type: String,
-        default: (v) => {
-            if (v !== "ARTIST") return "BASIC";
-        },
-        enum: ["BASIC", "ARTIST"],
-        required: true,
-    },
+    enum: ["BASIC", "ARTIST"],
+    required: true,
+  },
 });
 
 // Virtual product field for the user
 userSchema.virtual("products", {
-    ref: "Product",
-    localField: "_id",
-    foreignField: "seller",
+  ref: "Product",
+  localField: "_id",
+  foreignField: "seller",
 });
 
 // Virtual orders field for the user
 userSchema.virtual("orders", {
-    ref: "Order",
-    localField: "_id",
-    foreignField: "buyer",
+  ref: "Order",
+  localField: "_id",
+  foreignField: "buyer",
 });
 
 // Virtual sales field for the user
 userSchema.virtual("sales", {
-    ref: "Order",
-    localField: "_id",
-    foreignField: "seller",
+  ref: "Order",
+  localField: "_id",
+  foreignField: "seller",
 });
 
 // Ensures password and tokens are not sent to the client when when request about a user is made
 userSchema.methods.toJSON = function () {
-    const user = this;
+  const user = this;
 
-    const userObject = user.toObject();
-    delete userObject.password;
-    delete userObject.tokens;
+  const userObject = user.toObject();
+  delete userObject.password;
+  delete userObject.tokens;
 
-    return userObject;
+  return userObject;
 };
 
 // A method to simply generate a token for a user and saves it for future use
 // Sends the just created token to be saved on the client
 userSchema.methods.generateAuthToken = async function () {
-    const user = this;
+  const user = this;
 
-    // Creating the token with jwt
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY);
-    // Copying previous tokens if any and adding the new token
-    user.tokens = [...user.tokens, { token }];
-    await user.save();
-    return token;
+  // Creating the token with jwt
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY);
+  // Copying previous tokens if any and adding the new token
+  user.tokens = [...user.tokens, { token }];
+  await user.save();
+  return token;
 };
 
 // Removes the current token on the browser from the database
 userSchema.methods.removeToken = async function (token) {
-    const user = this;
-    user.tokens = user.tokens.filter(
-        (tokenObject) => tokenObject.token !== token
-    );
-    await user.save();
+  const user = this;
+  user.tokens = user.tokens.filter(
+    (tokenObject) => tokenObject.token !== token
+  );
+  await user.save();
 };
 
 // Method on the User collection to find a user by accepting email and password
 userSchema.statics.findByCredentials = async (email, password) => {
-    const user = await User.findOne({ email });
-    if (!user) {
-        throw new Error("User does not exist");
-    }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error("User does not exist");
+  }
 
-    const isMatch = bcrypt.compareSync(password, user.password);
-    if (!isMatch) {
-        throw new Error("User does not exist");
-    }
+  const isMatch = bcrypt.compareSync(password, user.password);
+  if (!isMatch) {
+    throw new Error("User does not exist");
+  }
 
-    // Send user if there is no errors
-    return user;
+  // Send user if there is no errors
+  return user;
 };
 
 // This middleware function runs after a save method is called on a user
 userSchema.pre("save", function (next) {
-    const user = this;
-    if (!user.isModified("password")) return next();
-    const salt = bcrypt.genSaltSync(8);
-    const hash = bcrypt.hashSync(user.password, salt);
-    user.password = hash;
-    next();
+  const user = this;
+  if (!user.isModified("password")) return next();
+  const salt = bcrypt.genSaltSync(8);
+  const hash = bcrypt.hashSync(user.password, salt);
+  user.password = hash;
+  next();
 });
 const User = mongoose.model("User", userSchema);
 
