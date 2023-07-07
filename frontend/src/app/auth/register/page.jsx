@@ -1,22 +1,79 @@
+"use client";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { primaryBold } from "@/app/fonts";
 import styles from "./styles.module.css";
+import { useContext, useState } from "react";
+import { RegisterRoleContext } from "@/context/RegisterRoleContext";
+import useUserContext from "@/hooks/useUserContext";
+import { ADD_USER } from "@/context/UserContext";
 
 const register = () => {
+  const router = useRouter();
+  const { dispatch } = useUserContext();
+  const { role } = useContext(RegisterRoleContext);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [momoNumber, setMomoNumber] = useState("");
+
+  function onSubmit(e) {
+    e.preventDefault();
+    (async function postData() {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_API_URL + "/users/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, password, role }),
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      dispatch({ type: ADD_USER, user: data.user, token: data.token });
+      router.push("/");
+    })();
+
+    // fetch(process.env.NEXT_PUBLIC_API_URL + "/users/register", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ name, email, password, role }),
+    // })
+    //   .then((res) => {
+    //     const data = res.json();
+    //     console.log(data);
+    //   })
+    //   .catch((e) => console.log(e));
+  }
+
   return (
     <div className={styles.register_box}>
       <h2 className={primaryBold.className + " " + styles.heading_secondary}>
         Register
       </h2>
-      <form className={styles.form}>
+      <form onSubmit={onSubmit} className={styles.form}>
         <div className={styles.form_control}>
-          <input type="text" id="name" className={styles.form_input} required />
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            id="name"
+            className={styles.form_input}
+            required
+          />
           <label htmlFor="name" className={styles.form_input_label}>
             Your name
           </label>
         </div>
         <div className={styles.form_control}>
           <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             type="text"
             id="email"
             className={styles.form_input}
@@ -28,6 +85,8 @@ const register = () => {
         </div>
         <div className={styles.form_control}>
           <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
             id="password"
             className={styles.form_input}
@@ -39,6 +98,8 @@ const register = () => {
         </div>
         <div className={styles.form_control}>
           <input
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             type="password"
             id="confirm-password"
             className={styles.form_input}
@@ -49,7 +110,14 @@ const register = () => {
           </label>
         </div>
         <div className={styles.form_control}>
-          <input type="text" id="momo" className={styles.form_input} required />
+          <input
+            value={momoNumber}
+            onChange={(e) => setMomoNumber(e.target.value)}
+            type="text"
+            id="momo"
+            className={styles.form_input}
+            required
+          />
           <label htmlFor="momo" className={styles.form_input_label}>
             Momo Number
           </label>

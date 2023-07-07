@@ -1,12 +1,25 @@
-import axios from "axios";
-import useSWR from "swr";
+import { useState, useEffect } from "react";
 
-const fetcher = (url) =>
-	axios.get(url, { withCredentials: true }).then((res) => res.data);
+export default function useFetch(url, options) {
+  const host = process.env.NEXT_PUBLIC_API_URL;
 
-const useFetch = (url) => {
-	const { data, error, mutate } = useSWR(url, fetcher);
-	return { data, error, mutate };
-};
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-export default useFetch;
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch(host + url, options);
+        const data = await res.json();
+        setData(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []); // the empty array ensures that the effect only runs once
+  return { data, error, loading };
+}

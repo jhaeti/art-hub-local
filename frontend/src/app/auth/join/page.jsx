@@ -3,9 +3,12 @@ import { useRouter } from "next/navigation";
 
 import { primaryBold } from "@/app/fonts";
 import styles from "./styles.module.css";
+import { useContext } from "react";
+import { RegisterRoleContext } from "@/context/RegisterRoleContext";
 
 const page = () => {
   const router = useRouter();
+  const { setRole } = useContext(RegisterRoleContext);
 
   return (
     <>
@@ -19,7 +22,10 @@ const page = () => {
         <div className={styles.btn}>
           <button
             className={styles.link}
-            onClick={() => router.push("/auth/register")}
+            onClick={() => {
+              setRole("BASIC");
+              router.push("/auth/register");
+            }}
           >
             I am here to purchase
           </button>
@@ -31,7 +37,10 @@ const page = () => {
         <div className={styles.btn}>
           <button
             className={styles.link}
-            onClick={() => router.push("/auth/register")}
+            onClick={() => {
+              setRole("ARTIST");
+              router.push("/auth/register");
+            }}
           >
             I want to advertise my arts
           </button>
