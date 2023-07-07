@@ -9,6 +9,7 @@ const initialState = {
 
 export const LOADING = "LOADING";
 export const ADD_USER = "ADD_USER";
+export const REMOVE_USER = "REMOVE_USER";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -20,6 +21,13 @@ const reducer = (state, action) => {
         user: action.user,
         isAuthenticated: true,
         token: action.token,
+      };
+    case REMOVE_USER:
+      return {
+        isAuthenticated: false,
+        user: null,
+        loading: false,
+        token: null,
       };
     default:
       return state;
