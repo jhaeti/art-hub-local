@@ -1,9 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useContext, useState } from "react";
+
 import { primaryBold } from "@/app/fonts";
 import styles from "./styles.module.css";
-import { useContext, useState } from "react";
 import { RegisterRoleContext } from "@/context/RegisterRoleContext";
 import useUserContext from "@/hooks/useUserContext";
 import { ADD_USER } from "@/context/UserContext";
@@ -18,7 +19,7 @@ const register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [momoNumber, setMomoNumber] = useState("");
 
-  function onSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     (async function postData() {
       const res = await fetch(
@@ -36,19 +37,6 @@ const register = () => {
       dispatch({ type: ADD_USER, user: data.user, token: data.token });
       router.push("/");
     })();
-
-    // fetch(process.env.NEXT_PUBLIC_API_URL + "/users/register", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ name, email, password, role }),
-    // })
-    //   .then((res) => {
-    //     const data = res.json();
-    //     console.log(data);
-    //   })
-    //   .catch((e) => console.log(e));
   }
 
   return (
@@ -56,7 +44,7 @@ const register = () => {
       <h2 className={primaryBold.className + " " + styles.heading_secondary}>
         Register
       </h2>
-      <form onSubmit={onSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.form_control}>
           <input
             value={name}
