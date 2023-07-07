@@ -20,6 +20,7 @@ const login = () => {
       const res = await fetch(
         process.env.NEXT_PUBLIC_API_URL + "/users/login",
         {
+          credentials: "include",
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -28,7 +29,6 @@ const login = () => {
         }
       );
       const data = await res.json();
-      console.log(data);
       dispatch({ type: ADD_USER, user: data.user, token: data.token });
       router.push("/");
     })();
