@@ -1,0 +1,70 @@
+.content {
+  display: flex;
+  margin-top: 4rem;
+  gap: 5rem;
+}
+
+.right {
+  width: 72%;
+}
+
+.side {
+  width: 28%;
+}
+
+.menu {
+  display: flex;
+  gap: 2rem;
+}
+
+.menu li {
+  list-style: none;
+  font-size: 2rem;
+  padding: 1rem 1rem 1rem 0;
+  cursor: pointer;
+}
+.menu li {
+  padding-right: 0;
+}
+
+.small_label {
+  font-size: 1.2rem;
+  opacity: 0.5;
+}
+
+.value {
+  font-size: 1.8rem;
+  margin-top: 1rem;
+}
+.side_action {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 1rem;
+}
+.side_action button {
+  font-size: 1.6rem;
+  padding: 1rem;
+  background: var(--color-primary);
+  outline: none;
+  border: none;
+  border-radius: 2px;
+}
+
+.add_art_btn {
+  background-color: rgba(255, 121, 80, 0.36);
+  width: 10rem;
+  height: 10rem;
+  margin-top: 3rem;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.add_art_btn span {
+  width: 6rem;
+  height: 1rem;
+  background: var(--color-dark);
+}
