@@ -1,0 +1,27 @@
+.form {
+  display: grid;
+  grid-template-columns: 40rem 40rem;
+  gap: 2rem;
+}
+
+.form_control {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form_control label {
+  font-size: 2rem;
+  color: var(--color-gray);
+}
+
+.form_control input {
+  border: 1px solid rgba(255, 82, 28, 0.3);
+  background: transparent;
+  border-radius: 2px;
+  height: 4rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  outline: none;
+}
