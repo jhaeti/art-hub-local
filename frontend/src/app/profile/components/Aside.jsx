@@ -26,14 +26,16 @@ const Aside = () => {
         <button>Change Password</button>
         <button>Edit Profile</button>
       </div>
-      <button
-        onClick={() => {
-          router.push("/add-product");
-        }}
-        className={primaryBold.className + " " + styles.add_art_btn}
-      >
-        Add art
-      </button>
+      {user && user.role === "ARTIST" && (
+        <button
+          onClick={() => {
+            router.push("/add-product");
+          }}
+          className={primaryBold.className + " " + styles.add_art_btn}
+        >
+          Add art
+        </button>
+      )}
     </aside>
   );
 };
