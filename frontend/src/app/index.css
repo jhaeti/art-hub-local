@@ -8,6 +8,7 @@
 
 :root {
   --color-white: #fffaf0;
+  --color-gray: #707070;
   --color-dark: #100c08;
   --color-primary: #ff521c;
   --color-secondary: #ff7950;
@@ -37,6 +38,7 @@ html {
 body {
   box-sizing: border-box;
   font-size: 1.6rem;
+  background: var(--color-white);
 }
 
 /* Utility classes */
@@ -48,4 +50,21 @@ body {
   @media screen and (max-width: 500px) {
     padding: 2.3rem;
   }
+}
+
+.cover_screen {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.safe_area {
+  padding-top: 11rem;
+}
+
+/* margin-top */
+.mt-1 {
+  margin-top: 1rem;
+}
+.mt-2 {
+  margin-top: 2rem;
 }
