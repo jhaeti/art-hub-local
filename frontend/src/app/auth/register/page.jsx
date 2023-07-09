@@ -17,7 +17,7 @@ const register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [momoNumber, setMomoNumber] = useState("");
+  const [momo, setMomo] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,12 +30,13 @@ const register = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name, email, password, role }),
+          body: JSON.stringify({ name, email, password, role, momo }),
         }
       );
       const data = await res.json();
-      dispatch({ type: ADD_USER, user: data.user, token: data.token });
-      router.push("/");
+      res.ok &&
+        dispatch({ type: ADD_USER, user: data.user, token: data.token });
+      res.ok && router.push("/");
     })();
   }
 
@@ -99,8 +100,8 @@ const register = () => {
         </div>
         <div className={styles.form_control}>
           <input
-            value={momoNumber}
-            onChange={(e) => setMomoNumber(e.target.value)}
+            value={momo}
+            onChange={(e) => setMomo(e.target.value)}
             type="text"
             id="momo"
             className={styles.form_input}
