@@ -17,7 +17,7 @@ const addProduct = () => {
   const router = useRouter();
 
   function handleChange(e) {
-    if ((e.target.id === "quantity") | "price") {
+    if (e.target.type === "number") {
       return setState((prev) => ({
         ...prev,
         [e.target.id]: +e.target.value,
