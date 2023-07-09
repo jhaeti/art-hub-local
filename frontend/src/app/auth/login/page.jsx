@@ -29,8 +29,9 @@ const login = () => {
         }
       );
       const data = await res.json();
-      dispatch({ type: ADD_USER, user: data.user, token: data.token });
-      router.push("/");
+      res.ok &&
+        dispatch({ type: ADD_USER, user: data.user, token: data.token });
+      res.ok && router.push("/");
     })();
   }
   return (
