@@ -6,7 +6,7 @@ import Link from "next/link";
 import * as fonts from "../../fonts";
 import styles from "./styels.module.css";
 import useUserContext from "@/hooks/useUserContext";
-import { REMOVE_USER } from "@/context/UserContext";
+import { REMOVE_USER, ADD_USER } from "@/context/UserContext";
 import apiUrl from "@/app/utils/apiUrl";
 
 const Navbar = () => {
@@ -16,6 +16,17 @@ const Navbar = () => {
     state: { isAuthenticated, token },
     dispatch,
   } = useUserContext();
+
+  useLayoutEffect(() => {
+    (async function getSelf() {
+      const res = await fetch(apiUrl + "/users/me", {
+        credentials: "include",
+      });
+      const data = await res.json();
+      res.ok &&
+        dispatch({ type: ADD_USER, user: data.user, token: data.token });
+    })();
+  }, []);
 
   function logout() {
     fetch(apiUrl + "/users/logout", {
@@ -30,6 +41,8 @@ const Navbar = () => {
       <div className={"container" + " " + styles.container}>
         <Link href="/">
           <Image
+            priority={true}
+            alt="Art hub local logo"
             src={
               pathname === "/" || pathname.startsWith("/auth")
                 ? "/logo.svg"
@@ -46,9 +59,9 @@ const Navbar = () => {
                 color:
                   pathname === "/" || pathname.startsWith("/auth")
                     ? "var(--color-white)"
-                    : "var(--color-dard)",
+                    : "var(--color-dark)",
               }}
-              href={isAuthenticated ? "/profile" : "/auth/login"}
+              href={isAuthenticated ? "/profile/orders" : "/auth/login"}
             >
               {isAuthenticated ? "Profile" : "Login"}
             </Link>
