@@ -1,32 +1,39 @@
 "use client";
-import { useLayoutEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useLayoutEffect } from "react";
 
 import styles from "./styles.module.css";
-
 import Aside from "./components/Aside";
 import Menu from "./components/Menu";
+import apiUrl from "../utils/apiUrl";
 import useUserContext from "@/hooks/useUserContext";
 
 const layout = ({ children }) => {
-  const {
-    state: { isAuthenticated },
-  } = useUserContext();
   const router = useRouter();
+  const { state } = useUserContext();
   useLayoutEffect(() => {
-    !isAuthenticated && router.push("/profile/orders");
-  }, []);
-  return (
-    <div className="cover_screen safe_area container">
-      <div className={styles.content}>
-        <div className={styles.right}>
-          <Menu />
-          {children}
-        </div>
+    (async function getSelf() {
+      const res = await fetch(apiUrl + "/users/me", {
+        credentials: "include",
+      });
 
-        <Aside />
+      !res.ok && router.push("/");
+    })();
+  }, []);
+
+  return (
+    state.isAuthenticated && (
+      <div className="cover_screen safe_area container">
+        <div className={styles.content}>
+          <div className={styles.right}>
+            <Menu />
+            {children}
+          </div>
+
+          <Aside />
+        </div>
       </div>
-    </div>
+    )
   );
 };
 
