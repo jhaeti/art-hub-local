@@ -6,10 +6,13 @@
   box-shadow: 0px 5px 20px #00000038;
   position: relative;
   cursor: pointer;
+}
+
+.animate {
   transition: all 0.1s ease-in-out;
 }
 
-.card:hover {
+.animate:hover {
   transform: scale(1.05) translateY(-1rem);
 }
 

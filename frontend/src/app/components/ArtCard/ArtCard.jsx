@@ -4,13 +4,13 @@ import { useRouter } from "next/navigation";
 import RemoveArtBtn from "./RemoveArtBtn";
 import styles from "./styles.module.css";
 
-const ArtCard = ({ art, showSellerName, showRemoveBtn }) => {
+const ArtCard = ({ art, disableAnimation, showSellerName, showRemoveBtn }) => {
   const router = useRouter();
   return (
-    <div className={styles.card}>
+    <div className={styles.card + " " + (!disableAnimation && styles.animate)}>
       <img
         onClick={() => {
-          router.push("/products/" + String(art._id));
+          router.push("/products/" + String(art._id), { query: art });
         }}
         className={styles.img}
         src={"data:image/jpg;base64," + art.img}
