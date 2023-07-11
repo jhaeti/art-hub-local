@@ -8,24 +8,19 @@ import styles from "./styels.module.css";
 import useUserContext from "@/hooks/useUserContext";
 import { REMOVE_USER, ADD_USER } from "@/context/UserContext";
 import apiUrl from "@/app/utils/apiUrl";
+import { userAgent } from "next/server";
 
-const Navbar = () => {
+const Navbar = ({ userData }) => {
   const router = useRouter();
   const pathname = usePathname();
   const {
-    state: { isAuthenticated, token },
+    state: { isAuthenticated },
     dispatch,
   } = useUserContext();
 
   useLayoutEffect(() => {
-    (async function getSelf() {
-      const res = await fetch(apiUrl + "/users/me", {
-        credentials: "include",
-      });
-      const data = await res.json();
-      res.ok &&
-        dispatch({ type: ADD_USER, user: data.user, token: data.token });
-    })();
+    userData &&
+      dispatch({ type: ADD_USER, user: userData.user, token: userData.token });
   }, []);
 
   function logout() {
@@ -36,6 +31,7 @@ const Navbar = () => {
       router.push("/auth/login");
     });
   }
+
   return (
     <nav className={styles.nav}>
       <div className={"container" + " " + styles.container}>
