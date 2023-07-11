@@ -41,7 +41,6 @@ const Cards = ({ arts, showSellerName, showRemoveBtn, columns }) => {
               ))}
         </div>
       )}
-      {/* {res.ok && art.map((art) => <ArtCard art={art} />)} */}
     </div>
   );
 };
