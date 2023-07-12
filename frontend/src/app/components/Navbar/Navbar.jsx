@@ -8,7 +8,6 @@ import styles from "./styels.module.css";
 import useUserContext from "@/hooks/useUserContext";
 import { REMOVE_USER, ADD_USER } from "@/context/UserContext";
 import apiUrl from "@/app/utils/apiUrl";
-import { userAgent } from "next/server";
 
 const Navbar = ({ userData }) => {
   const router = useRouter();
@@ -33,7 +32,15 @@ const Navbar = ({ userData }) => {
   }
 
   return (
-    <nav className={styles.nav}>
+    <nav
+      style={{
+        "--bg-color":
+          pathname === "/" || pathname.startsWith("/auth")
+            ? "var(--color-dark-transparent)"
+            : "var(--color-white-transparent)",
+      }}
+      className={styles.nav}
+    >
       <div className={"container" + " " + styles.container}>
         <Link href="/">
           <Image

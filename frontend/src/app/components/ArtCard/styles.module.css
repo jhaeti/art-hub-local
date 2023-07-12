@@ -64,3 +64,37 @@
   border-radius: 5px;
   transform: rotate(-90deg);
 }
+
+@media screen and (max-width: 600px) {
+  .card {
+    width: 90%;
+    margin: auto;
+  }
+  .card > p {
+    font-size: 1.6rem;
+  }
+  .animate {
+    transition: none 0.1s ease-in-out;
+  }
+
+  .animate:hover {
+    transform: scale(1) translateY(0rem);
+  }
+}
+
+@media only screen and (-webkit-device-min-pixel-ratio: 3.5) {
+  .card {
+    width: 90%;
+    margin: auto;
+  }
+  .card > p {
+    font-size: 1.6rem;
+  }
+  .animate {
+    transition: none 0.1s ease-in-out;
+  }
+
+  .animate:hover {
+    transform: scale(1) translateY(0rem);
+  }
+}

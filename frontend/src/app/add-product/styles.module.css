@@ -25,3 +25,17 @@
   padding-left: 1rem;
   outline: none;
 }
+
+@media screen and (max-width: 600px) {
+  .form {
+    grid-template-columns: 90%;
+    margin-left: 10%;
+  }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
+  .form {
+    grid-template-columns: 90%;
+    margin-left: 5%;
+  }
+}

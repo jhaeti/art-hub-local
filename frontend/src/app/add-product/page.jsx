@@ -98,7 +98,7 @@ const addProduct = () => {
             htmlFor="img"
             style={{
               padding: "2rem",
-              background: "var(--color-gray)",
+              background: `${state.img ? "green" : "var(--color-gray)"} `,
               color: "var(--color-white)",
             }}
           >

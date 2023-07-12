@@ -38,4 +38,36 @@
   height: 5rem;
   text-transform: uppercase;
   font-weight: 1000;
+  background-color: var(--color-primary);
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  min-width: 20rem;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
+  .content {
+    flex-direction: column;
+  }
+  .art_container,
+  .details {
+    width: 80%;
+    margin: auto;
+  }
+  .details button {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .content {
+    flex-direction: column;
+  }
+  .art_container,
+  .details {
+    width: 80%;
+    margin: auto;
+  }
+  .details button {
+    width: 100%;
+  }
 }

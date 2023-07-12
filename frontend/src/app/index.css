@@ -8,8 +8,10 @@
 
 :root {
   --color-white: #fffaf0;
+  --color-white-transparent: #fffaf099;
   --color-gray: #707070;
   --color-dark: #100c08;
+  --color-dark-transparent: #100c0899;
   --color-primary: #ff521c;
   --color-secondary: #ff7950;
 }
@@ -29,6 +31,13 @@ html {
     font-size: 50%; /* Making 1rem = 8px */
   }
 }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
+  html {
+    font-size: 50%; /* Making 1rem = 8px */
+  }
+}
+
 @media (min-width: 1800px) {
   html {
     font-size: 75%; /* Making 1rem = 12px */
@@ -48,7 +57,10 @@ body {
   padding: 0 5rem;
   max-width: 120rem;
   @media screen and (max-width: 500px) {
-    padding: 2.3rem;
+    padding: 0 2.3rem;
+  }
+  @media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
+    padding: 0 2.3rem;
   }
 }
 
@@ -58,7 +70,7 @@ body {
 }
 
 .safe_area {
-  padding-top: 11rem;
+  padding-top: 12rem;
 }
 
 /* margin-top */

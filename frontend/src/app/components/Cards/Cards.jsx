@@ -1,6 +1,12 @@
 import ArtCard from "../ArtCard/ArtCard";
 import styles from "./styles.module.css";
-const Cards = ({ arts, showSellerName, showRemoveBtn, columns }) => {
+const Cards = ({
+  arts,
+  showSellerName,
+  showRemoveBtn,
+  columns,
+  shouldRemoveFromFav,
+}) => {
   return (
     <div style={{ "--columns": columns }} className={styles.grid}>
       <div>
@@ -11,6 +17,7 @@ const Cards = ({ arts, showSellerName, showRemoveBtn, columns }) => {
               <ArtCard
                 showSellerName={showSellerName}
                 showRemoveBtn={showRemoveBtn}
+                shouldRemoveFromFav={shouldRemoveFromFav}
                 art={art}
               />
             ))}

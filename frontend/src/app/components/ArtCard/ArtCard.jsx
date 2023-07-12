@@ -3,8 +3,16 @@
 import { useRouter } from "next/navigation";
 import RemoveArtBtn from "./RemoveArtBtn";
 import styles from "./styles.module.css";
+import FavBtn from "./FavBtn";
 
-const ArtCard = ({ art, disableAnimation, showSellerName, showRemoveBtn }) => {
+const ArtCard = ({
+  art,
+  disableAnimation,
+  showSellerName,
+  showRemoveBtn,
+  showFavBtn,
+  shouldRemoveFromFav,
+}) => {
   const router = useRouter();
   return (
     <div className={styles.card + " " + (!disableAnimation && styles.animate)}>
@@ -18,7 +26,10 @@ const ArtCard = ({ art, disableAnimation, showSellerName, showRemoveBtn }) => {
       />
       {showSellerName && <p> - {art.sellerName}</p>}
 
-      {showRemoveBtn && <RemoveArtBtn id={art._id} />}
+      {showRemoveBtn && (
+        <RemoveArtBtn id={art._id} shouldRemoveFromFav={shouldRemoveFromFav} />
+      )}
+      {showFavBtn && <FavBtn art={art} />}
     </div>
   );
 };
