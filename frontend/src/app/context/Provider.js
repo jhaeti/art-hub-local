@@ -12,7 +12,7 @@ const Provider = ({ children }) => {
           height="4px"
           color="#00ff00"
           options={{ showSpinner: false }}
-          // shallowRouting
+          shallowRouting
         />
         {children}
       </UserContextProvider>
