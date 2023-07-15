@@ -20,8 +20,8 @@ const productsTable = ({ products }) => {
         {products.map((product) => (
           <tr>
             <td>{product._id.slice(0, 10)}</td>
-            <td>{product.name}</td>
-            <td>{product.ns}</td>
+            <td>{product.productName}</td>
+            <td>{product.quantity}</td>
             <td>{new Date(product.date).toISOString().split("T")[0]}</td>
           </tr>
         ))}
