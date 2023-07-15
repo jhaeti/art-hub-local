@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { primaryBold } from "@/app/fonts";
 import styles from "./styles.module.css";
 import { useContext } from "react";
-import { RegisterRoleContext } from "@/context/RegisterRoleContext";
+import { RegisterRoleContext } from "@/app/context/RegisterRoleContext";
 
 const page = () => {
   const router = useRouter();
