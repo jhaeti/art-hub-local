@@ -1,7 +1,7 @@
 "use client";
 import styles from "./styles.module.css";
 import { secondary } from "../fonts";
-import { RegisterRoleContextProvider } from "@/context/RegisterRoleContext";
+import { RegisterRoleContextProvider } from "@/app/context/RegisterRoleContext";
 
 const AuthLayout = ({ children }) => {
   return (
