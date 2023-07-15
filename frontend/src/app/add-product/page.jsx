@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import styles from "./styles.module.css";
 import { primaryBold } from "../fonts";
 import apiUrl from "../utils/apiUrl";
+import useMsgContext from "../hooks/useMsgContext";
+import { WARN } from "../context/MsgContext";
 
 const addProduct = () => {
   const [state, setState] = useState({
@@ -15,6 +17,7 @@ const addProduct = () => {
     img: null,
   });
   const router = useRouter();
+  const { dispatch } = useMsgContext();
 
   function handleChange(e) {
     if (e.target.type === "number") {
@@ -44,7 +47,9 @@ const addProduct = () => {
         credentials: "include",
         body: formData,
       });
-      res.ok && router.push("/profile/products");
+      res.ok
+        ? router.push("/profile/products")
+        : dispatch({ type: WARN, payload: await res.json() });
     })();
   }
 

@@ -2,9 +2,10 @@ import "./index.css";
 import { primary } from "./fonts";
 
 import Navbar from "./components/Navbar/Navbar";
-import Provider from "../context/Provider";
+import Provider from "./context/Provider";
 import apiUrl from "./utils/apiUrl";
 import { cookies } from "next/dist/client/components/headers";
+import Alert from "./components/Alert/Alert";
 
 export const metadata = {
   title: "Art Hub Local",
@@ -21,9 +22,10 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={primary.className}>
+      <body style={{ width: "100%" }} className={primary.className}>
         <Provider>
           <Navbar userData={res.ok && data} />
+          <Alert />
           {children}
         </Provider>
       </body>
