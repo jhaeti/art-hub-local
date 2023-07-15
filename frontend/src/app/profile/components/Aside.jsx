@@ -1,9 +1,6 @@
-import { useRouter } from "next/navigation";
-import { primaryBold } from "@/app/fonts";
 import styles from "../styles.module.css";
-import useUserContext from "@/hooks/useUserContext";
+import useUserContext from "@/app/hooks/useUserContext";
 const Aside = () => {
-  const router = useRouter();
   const {
     state: { user },
   } = useUserContext();
