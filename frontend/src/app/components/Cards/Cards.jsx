@@ -8,7 +8,7 @@ const Cards = ({
   shouldRemoveFromFav,
 }) => {
   return (
-    <div style={{ "--columns": columns }} className={styles.grid}>
+    <div id="arts" style={{ "--columns": columns }} className={styles.grid}>
       <div>
         {arts &&
           arts
