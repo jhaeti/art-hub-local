@@ -1,16 +1,20 @@
 "use client";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { primaryBold } from "@/app/fonts";
 import styles from "./styles.module.css";
-import useUserContext from "@/hooks/useUserContext";
-import { ADD_USER } from "@/context/UserContext";
+import useUserContext from "@/app/hooks/useUserContext";
+import { ADD_USER } from "@/app/context/UserContext";
+import useMsgContext from "@/app/hooks/useMsgContext";
+import { ERROR } from "@/app/context/MsgContext";
 
 const login = () => {
   const router = useRouter();
   const { dispatch } = useUserContext();
+  const { dispatch: msgDispatch } = useMsgContext();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,9 +33,12 @@ const login = () => {
         }
       );
       const data = await res.json();
-      res.ok &&
+      if (res.ok) {
         dispatch({ type: ADD_USER, user: data.user, token: data.token });
-      res.ok && router.push("/");
+        router.push("/#arts");
+      } else {
+        msgDispatch({ type: ERROR, payload: data });
+      }
     })();
   }
   return (

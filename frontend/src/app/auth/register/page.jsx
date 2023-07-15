@@ -5,14 +5,17 @@ import { useContext, useState } from "react";
 
 import { primaryBold } from "@/app/fonts";
 import styles from "./styles.module.css";
-import { RegisterRoleContext } from "@/context/RegisterRoleContext";
-import useUserContext from "@/hooks/useUserContext";
-import { ADD_USER } from "@/context/UserContext";
+import { RegisterRoleContext } from "@/app/context/RegisterRoleContext";
+import useUserContext from "@/app/hooks/useUserContext";
+import { ADD_USER } from "@/app/context/UserContext";
+import useMsgContext from "@/app/hooks/useMsgContext";
+import { ERROR } from "@/app/context/MsgContext";
 
 const register = () => {
   const router = useRouter();
   const { dispatch } = useUserContext();
   const { role } = useContext(RegisterRoleContext);
+  const { dispatch: msgDispatch } = useMsgContext();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,9 +37,13 @@ const register = () => {
         }
       );
       const data = await res.json();
-      res.ok &&
+
+      if (res.ok) {
         dispatch({ type: ADD_USER, user: data.user, token: data.token });
-      res.ok && router.push("/");
+        router.push("/#arts");
+      } else {
+        msgDispatch({ type: ERROR, payload: data });
+      }
     })();
   }
 
