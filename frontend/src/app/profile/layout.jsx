@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 import Aside from "./components/Aside";
 import Menu from "./components/Menu";
 import apiUrl from "../utils/apiUrl";
-import useUserContext from "@/hooks/useUserContext";
+import useUserContext from "@/app/hooks/useUserContext";
 
 const layout = ({ children }) => {
   const router = useRouter();
