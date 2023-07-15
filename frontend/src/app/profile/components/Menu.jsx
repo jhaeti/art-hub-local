@@ -1,6 +1,6 @@
 import styles from "../styles.module.css";
 import { primaryBold } from "@/app/fonts";
-import useUserContext from "@/hooks/useUserContext";
+import useUserContext from "@/app/hooks/useUserContext";
 import { usePathname, useRouter } from "next/navigation";
 
 const Menu = () => {
