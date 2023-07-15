@@ -4,9 +4,9 @@ import { useLayoutEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import * as fonts from "../../fonts";
-import styles from "./styels.module.css";
-import useUserContext from "@/hooks/useUserContext";
-import { REMOVE_USER, ADD_USER } from "@/context/UserContext";
+import styles from "./styles.module.css";
+import useUserContext from "@/app/hooks/useUserContext";
+import { REMOVE_USER, ADD_USER } from "@/app/context/UserContext";
 import apiUrl from "@/app/utils/apiUrl";
 
 const Navbar = ({ userData }) => {
