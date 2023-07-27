@@ -27,6 +27,21 @@ const addProduct = () => {
       }));
     }
     if (e.target.id === "img") {
+      const imageSrc = URL.createObjectURL(e.target.files[0]);
+      /**
+       * Select the image preview element.
+       */
+      const imagePreviewElement = document.querySelector(
+        "#preview-selected-image"
+      );
+      /**
+       * Assign the path to the image preview element.
+       */
+      imagePreviewElement.src = imageSrc;
+      /**
+       * Show the element by changing the display value to "block".
+       */
+      imagePreviewElement.style.display = "block";
       return setState((prev) => ({
         ...prev,
         [e.target.id]: e.target.files[0],
@@ -99,6 +114,9 @@ const addProduct = () => {
           />
         </div>
         <div className={styles.form_control}>
+          <img className={styles.img} id="preview-selected-image" />
+        </div>
+        <div className={styles.form_control}>
           <label
             htmlFor="img"
             style={{
@@ -118,23 +136,24 @@ const addProduct = () => {
             type="file"
             id="img"
           />
+          <button
+            style={{
+              display: "block",
+              padding: "2rem",
+              width: "100%",
+              textTransform: "uppercase",
+              background: "var(--color-primary)",
+              color: "var(--color-dark)",
+              border: "none",
+              outline: "none",
+              borderRadius: "2px",
+              fontSize: "2.4rem",
+            }}
+            className={primaryBold.className}
+          >
+            Submit
+          </button>
         </div>
-        <button
-          style={{
-            textTransform: "uppercase",
-            width: "30rem",
-            height: "5rem",
-            background: "var(--color-primary)",
-            color: "var(--color-dark)",
-            border: "none",
-            outline: "none",
-            borderRadius: "2px",
-            fontSize: "2.4rem",
-          }}
-          className={primaryBold.className}
-        >
-          Submit
-        </button>
       </form>
     </div>
   );
