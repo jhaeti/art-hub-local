@@ -13,37 +13,26 @@ const upload = multer({ limits: { fieldSize: 1000000 } });
 // @return a [products]
 router.get("/products", async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find({ quantity: { $gt: 0 } });
     res.send(products);
   } catch (e) {
     res.sendStatus(500);
   }
 });
 
-// Count number of Products in database
-// @returns a Number of products => int
-// router.get("/products-count", auth, artistAuth, async (req, res) => {
-// 	try {
-// 		const count = await Product.countDocuments();
-
-// 		res.json(count);
-// 	} catch (e) {
-// 		res.sendStatus(500);
-// 	}
-// });
-
-// Deletes any products by the [ids]
-// ids should be sent in the body in a form of an array
-// @returns Number of products delete => int
-// router.delete("/products", auth, artistAuth, async (req, res) => {
-// 	try {
-// 		const id = req.body;
-// 		const { deletedCount } = await Product.deleteMany({ _id: { $in: id } });
-// 		res.status(200).json(deletedCount);
-// 	} catch (e) {
-// 		res.sendStatus(500);
-// 	}
-// });
+// @Get product image
+// returns an image
+router.get("/products/:id/img", async (req, res) => {
+  try {
+    const product = await Product.findOne({
+      _id: req.params.id,
+    });
+    res.set("Content-Type", "image/jpg");
+    res.send(product.img);
+  } catch (e) {
+    res.sendStatus(500);
+  }
+});
 
 // Post a product to /products
 // Access Should be a user and an Artist
