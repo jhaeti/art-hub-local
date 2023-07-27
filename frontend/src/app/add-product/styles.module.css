@@ -5,15 +5,23 @@
 }
 
 .form_control {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
   align-items: center;
   gap: 1rem;
+}
+.form_control > *:nth-child(even) {
+  flex-grow: 1;
+}
+.form_control:last-child {
+  display: block;
+  margin-top: 2rem;
 }
 
 .form_control label {
   font-size: 2rem;
   color: var(--color-gray);
+  display: block;
+  text-align: center;
 }
 
 .form_control input {
@@ -24,6 +32,12 @@
   padding-right: 1rem;
   padding-left: 1rem;
   outline: none;
+}
+
+.img {
+  width: 100%;
+  display: none;
+  margin-bottom: 30px;
 }
 
 @media screen and (max-width: 600px) {
