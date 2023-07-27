@@ -21,7 +21,7 @@ const ArtCard = ({
           router.push("/products/" + String(art._id), { query: art });
         }}
         className={styles.img}
-        src={"data:image/jpg;base64," + art.img}
+        src={`${process.env.NEXT_PUBLIC_API_URL}/products/${art._id}/img`}
         alt={art.description}
       />
       {showSellerName && <p> - {art.sellerName}</p>}
