@@ -45,10 +45,10 @@ const productSchema = new mongoose.Schema({
 productSchema.methods.toJSON = function () {
   const product = this;
 
-  const userObject = product.toObject();
-  //   userObject.img = "data:image/jpeg;base64," + userObject.img;
+  const productObject = product.toObject();
+  delete productObject.img;
 
-  return userObject;
+  return productObject;
 };
 
 const Product = mongoose.model("Product", productSchema);
