@@ -3,4 +3,7 @@ backend/node_modules
 frontend/.env
 frontend/.next
 frontend/node_modules
+admin/.env
+admin/.next
+admin/node_modules
 

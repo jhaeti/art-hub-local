@@ -1,0 +1,28 @@
+.grid {
+  --columns: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  gap: 3rem;
+  align-items: start;
+  margin-top: 2rem;
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
+  .grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+.grid > * {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
